@@ -30,7 +30,6 @@ namespace InverviewV1.WebApi.Controllers
         /// <summary>
         /// Retrieves a specific city by id.
         /// </summary>
-        /// <remarks>Awesomeness!</remarks>
         /// <response code="200">City returned</response>
         /// <response code="404">City not found</response>
         [HttpGet]

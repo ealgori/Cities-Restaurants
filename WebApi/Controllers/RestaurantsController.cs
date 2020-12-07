@@ -24,7 +24,6 @@ namespace InverviewV1.WebApi.Controllers
         /// <summary>
         /// Retrieves a specific restaurant by id.
         /// </summary>
-        /// <remarks>Awesomeness!</remarks>
         /// <response code="200">Restaurant exist</response>
         /// <response code="404">Restaurant not found</response>
         [HttpGet]

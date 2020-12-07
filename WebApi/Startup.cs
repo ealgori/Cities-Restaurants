@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EFCore;
 using EFCore.Extensions;
+using FluentValidation.AspNetCore;
 using Infrastructure.Extensions;
 using InverviewV1.WebApi.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +34,7 @@ namespace InverviewV1.WebApi
         {
             services.RegisterEfDalServices(Configuration);
             services.RegisterMapper();
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(c=>c.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddSwaggerGen(option =>
             {
                 option.SwaggerDoc("v1", new OpenApiInfo {Title = "Restaurant API", Version = "v1"});

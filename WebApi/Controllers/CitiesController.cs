@@ -33,9 +33,10 @@ namespace InverviewV1.WebApi.Controllers
         /// <remarks>Awesomeness!</remarks>
         /// <response code="200">City returned</response>
         /// <response code="404">City not found</response>
-        /// <response code="500">Internal server Error</response>
         [HttpGet]
         [Route("{cityId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async ValueTask<IActionResult> GetById(int cityId)
         {
             var city = await _cityService.GetById(cityId);
@@ -47,8 +48,10 @@ namespace InverviewV1.WebApi.Controllers
         /// Add new city
         /// </summary>
         /// <response code="201">City created</response>
+        /// <response code="400">Model validation error</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddCity([FromBody] CityDto cityDto)
         {
             await _cityService.AddCity(cityDto);
@@ -58,8 +61,7 @@ namespace InverviewV1.WebApi.Controllers
         /// Add restaurant to city.
         /// </summary>
         /// <response code="201">Restaurant added</response>
-        /// <response code="302">City not exist</response>
-        /// <response code="500">Internal server Error</response>
+        /// <response code="400">Model validation error</response>
         [HttpPost()]
         [Route("{cityId}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -67,7 +69,7 @@ namespace InverviewV1.WebApi.Controllers
         public async Task<IActionResult>AddRestaurant(int cityId,  [FromBody] RestaurantDto restaurantDto)
         {
             var city = await _cityService.GetById(cityId);
-            if (city == null)
+            if (city == null) 
                 return BadRequest();
             await _cityService.AddRestaurant(restaurantDto,cityId);
             return CreatedAtRoute("GetRestaurant", new {restaurantId = restaurantDto.Id},restaurantDto);

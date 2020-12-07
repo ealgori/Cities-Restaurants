@@ -18,13 +18,15 @@ namespace EFCore
                 .HasKey(c => c.Id);
             modelBuilder.Entity<City>()
                 .Property(c => c.Name)
-                .HasMaxLength(150); 
+                .HasMaxLength(150)
+                .IsRequired(); 
             
             modelBuilder.Entity<Restaurant>()
                 .HasKey(c => c.Id);
             modelBuilder.Entity<Restaurant>()
                 .Property(r => r.Name)
-                .HasMaxLength(150);
+                .HasMaxLength(150)
+                .IsRequired();
         }
     }
 }
